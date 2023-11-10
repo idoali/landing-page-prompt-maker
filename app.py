@@ -18,16 +18,17 @@ def main():
     )
 
     # Questions
-    user_name = st.text_input("1. 🤔 What's your name?")
-    business_description = st.text_input("2. 🏢 Describe your business:")
-    target_description = st.text_input("3. 🎯 Who is your target audience?")
-    product_description = st.text_input("4. 🛍️ Describe your product:")
-    special_words = st.text_input("5. 🗣️ Is there any specific words your target audience used? If yes, please list them:")
+    business_description = st.text_input("1. 🏢 Describe your business:")
+    target_description = st.text_input("2. 🎯 Who is your target audience?")
+    product_description = st.text_input("3. 🛍️ Describe your product:")
+    special_words = st.text_input("4. 🗣️ Is there any specific words your target audience used? If yes, please list them:")
     if special_words == None:
         special_words = "-"
     # tonality = st.text_input("5. Choose the tonality (e.g., Persuasive, Informative, Friendly):")
     tonality = st.selectbox("🎙️ Landing Page Tonality", options["Tones"])
     tonality = tonality.split(" ")[1]
+    
+    st.write(f"These are the special words: {special_words}")
 
     # Step 2
     st.header("Step 2: Click 'Make Prompt' Button")
@@ -36,12 +37,14 @@ def main():
     if st.button("Make Prompt"):
         # Step 3
         st.header("Step 3: Copy the Prompt to ChatGPT")
-        prompt = generate_prompt(user_name, business_description, target_description, product_description, tonality)
+        prompt = generate_prompt(business_description, target_description, product_description, tonality, special_words)
         st.code(prompt, language="text")
         st.success("Prompt generated! Copy the code above and use it with ChatGPT.")
         st.success("If ChatGPT only make one variation (the prompt will ask ChatGPT to make 3), just type 'continue your answer'")
 
-def generate_prompt(user_name, business_description, target_description, product_description, tonality):
+# Use these words anytime you can: {special_words}
+
+def generate_prompt(business_description, target_description, product_description, tonality, special_words):
     prompt = f"""
     "Write three variations of a landing page for {business_description} targeted towards {target_description}.
 
@@ -73,10 +76,10 @@ def generate_prompt(user_name, business_description, target_description, product
     9. About Us: Keep the 'About Us' section concise.
     10. FAQ: Answer the most common questions related to the product.
     11. Ensure that each component of the landing page is logically related to the others.
-    
-    Use these words anytime you can: {special_words}
 
     Compose each landing page in the specified {tonality} tone and use the following format:
+    
+    Use these words anytime you can: {special_words}
 
     **Notice Bar**: <notice bar>
     **Headline**: <headline>
