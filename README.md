@@ -1,5 +1,3 @@
-# Landing Page Prompt Maker
-
 # ChatGPT Prompt Maker App
 
 Welcome to the ChatGPT Prompt Maker App! This app allows you to generate custom prompts for ChatGPT based on your specific preferences and business details.
